@@ -4,7 +4,9 @@ import com.beyond.basic.domain.Hello;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 // @Controller : 해당 클래스가 Controller(사용자의 요청을 처리하고 응답하는 편의 기능)임을 명시
 @Controller
@@ -86,10 +88,114 @@ public class HelloController {
     // CASE 6 ) 서버에서 화면에 데이터를 넣어 사용자에게 return (model 객체 사용)
     // RestController 사용 X. 얘는 데이터를 리턴하기 때문
     @GetMapping("/model-param")
-    public String modelParam(@RequestParam(value = "name") String inputName){
-
+    public String modelParam(@RequestParam(value = "name") String inputName, Model model){
+        // model 객체에 name이라는 키값에 value를 세팅하면 해당 key:value는 화면으로 전달
+        model.addAttribute("name", inputName);
 
         return "helloworld";
     }
+
+    // CASE 7 ) pathvariable방식을 통해 사용자로부터 값을 받아 화면을 리턴
+    // localhost:8080/hello/model-path/keem
+    // localhost:8080/author/1 (pathvariable 방식)
+    // <-> author?id=1 (parameter 방식)
+    // pathvariable 방식은 url을 통해 자원의 구조를 명확하게 표현함으로, 돈 더 restful한 형식
+    @GetMapping("/model-path/{inputName}")
+    public String modelPath(@PathVariable String inputName, Model model){
+        model.addAttribute("name", inputName);
+
+        return "helloworld";
+    }
+
+
+    // Post 요청 (사용자 입장에서 서버에 데이터를 주는 상황)
+
+    // 실습 )
+    // 사용자에게 name, email, password를 입력할 수 있는 화면을 주는 메서드 정의
+    @GetMapping("/form-view")
+    public  String formView(){
+        return "form-view";
+    }
+    // CASE 1) url 인코딩 방식(text만) 전송
+    // 형식 : key1=value&key2=value
+    @PostMapping("/form-post1")  // getMapping과 같은 url 패턴 사용도 가능
+    @ResponseBody
+    public String formPost1(@RequestParam(value = "name") String inName,
+                            @RequestParam(value = "email") String inEmail,
+                            @RequestParam(value = "password") String inPassword){
+        // 받아온 내용 출력
+        System.out.println(inName);
+        System.out.println(inEmail);
+        System.out.println(inPassword);
+        return "ok";
+    }
+
+    @PostMapping("/form-post2")
+    @ResponseBody
+    public String formPost2(@ModelAttribute Hello hello){   // @ModelAttribute는 생략 가능. 데이터 바인딩을 하고 있다고 명시적으로 알려주는 것일뿐
+        System.out.println(hello);
+        return "ok";
+    }
+
+    // CASE 2 ) multipart/form-data 방식(text와 파일) 전송
+    // url 명 : form-post3, 메서드명: formData3, 화면명: form-file-view
+    // form태그: name, email, password, file
+    @GetMapping("/form-file-view")
+    public String formFilePost(){
+        return "form-file-view";
+    }
+
+    @PostMapping("/form-file-view")
+    @ResponseBody
+    public String formFileHandle(Hello hello,
+                                 @RequestParam(value="file")MultipartFile file)
+    {
+        System.out.println(hello);
+        System.out.println(file.getOriginalFilename());
+
+        return "ok";
+    }
+
+    // CASE 3 ) js를 활용한 form 데이터 전송(text)
+    @GetMapping("/axios-form-view")
+    public String axiosFormView(){
+        // name, email, password 전송
+        return "axios-form-view";
+    }
+
+    @PostMapping("/axios-form-view")
+    @ResponseBody
+    // axios를 통해 넘어오는 형식이 key1=value&key2=value 등 url 인코딩 방식
+    public String axiosFormPost(Hello hello){
+        System.out.println(hello);
+        return "ok";
+    }
+    // CASE 4 ) js를 활용한 form 데이터 전송(+file)
+    @GetMapping("axios-form-file-view")
+    public String axiosFormFileView(){
+        return "axios-form-file-view";
+    }
+
+    @PostMapping("axios-form-file-view")
+    @ResponseBody
+    public String axiosFormFilePost(Hello hello,
+                                    @RequestParam(value = "file")MultipartFile file)
+    {
+        System.out.println(hello);
+        System.out.println(file.getOriginalFilename());
+        return "ok";
+
+    }
+
+    // CASE 5 ) js를 활용한 json 데이터 전송
+
+    // CASE 6 ) js를 활용한 json 데이터 전송(+file)
+
+    // CASE 7 ) js를 활용한 json 데이터  전송(+여러 파일)
+
+
+
+
+
 
 }

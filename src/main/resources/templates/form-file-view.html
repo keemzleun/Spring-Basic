@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+</head>
+
+<body>
+<form action="/hello/form-file-view" method="post" enctype="multipart/form-data">
+    <div>
+        <label for="name">이름</label>
+        <input id="name" name="name">
+    </div>
+    <div>
+        <label for="email">이메일</label>
+        <input id="email" name="email" >
+    </div>
+    <div>
+        <label for="password">비밀번호</label>
+        <input type="password" id="password" name="password">
+    </div>
+    <div>
+        <label for="file">파일</label>
+        <input type="file" id="file" name="file">
+    </div>
+    <input type="submit" value="제출">
+</form>
+</body>
+</html>
