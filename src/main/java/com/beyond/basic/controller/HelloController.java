@@ -44,10 +44,10 @@ public class HelloController {
 
     // CASE 4 ) 사용자가 json 데이터를 요청하되, parameter 형식으로 특정 객체 요청
     // get 요청 중에 특정 데이터를 요청
-    @GetMapping("/model-param1")
+    @GetMapping("/param1")
     @ResponseBody
     // parameter 형식 : ?name=keem
-    public Hello modelParam1(@RequestParam(value = "name") String inputName) {
+    public Hello param1(@RequestParam(value = "name") String inputName) {
         Hello hello = new Hello();
         hello.setName(inputName);
         hello.setEmail("keem@naver.com");
@@ -59,10 +59,11 @@ public class HelloController {
     // url 패턴 : model-param2, 메서드:modelParam2
     // parameter 2개: name, email => hello 객체 생성 후 리턴
     // 요첮 방식: ?name=xxx&email=xxx@naver.com
-    @GetMapping("/model-param2")
+    @GetMapping("/param2")
     @ResponseBody
     // parameter 형식 : ?name=keem
-    public Hello modelParam2(@RequestParam(value = "name") String inputName, @RequestParam(value = "email") String inputEmail) {
+    public Hello param2(@RequestParam(value = "name") String inputName,
+                        @RequestParam(value = "email") String inputEmail) {
         Hello hello = new Hello();
         hello.setName(inputName);
         hello.setEmail(inputEmail);
@@ -70,13 +71,25 @@ public class HelloController {
     }
 
 
-    @GetMapping("/model-param3")
+    // CASE 5 ) parameter 형식으로 요청하되, 서버에서 데이터 바인딩 하는 형식
+    @GetMapping("/param3")
     @ResponseBody
     // parameter가 많을 경우, 객체로 대체가 가능함
     // 객체에 각 변수가 맞게 알아서 바인딩됨(데이터 바인딩)
     // ?name=xxx&email=xx@naver.com&password=xxx
     // 데이터바인딩의 조건 : 기본생성자, setter
-    public Hello modelParam3(Hello hello){
+    public Hello param3(Hello hello){
         return hello;
     }
+
+
+    // CASE 6 ) 서버에서 화면에 데이터를 넣어 사용자에게 return (model 객체 사용)
+    // RestController 사용 X. 얘는 데이터를 리턴하기 때문
+    @GetMapping("/model-param")
+    public String modelParam(@RequestParam(value = "name") String inputName){
+
+
+        return "helloworld";
+    }
+
 }
