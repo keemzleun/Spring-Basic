@@ -2,6 +2,7 @@
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.11'
+	// 의존성 관리 툴의 버전을 명시
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
 }
 
@@ -15,14 +16,22 @@ java {
 }
 
 repositories {
+	// 의존성을 가져오는 대상 저장소(repository)
+	// 내부망에서 인터넷을 사용하기 불가한 경우에는 nexus(설치형)와 같은 repository를 사용하기도 함
 	mavenCentral()
 }
 
+// starter 종속성은 일반적으로 별도의 버전관리가 필요없고, 버전에 다라 호환성을 맞춰줌
 dependencies {
+	// DB 연결 및 관리를 위한 의존성 : jdbc, mybatis, jpa, springDataJpa
 //	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 //	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// thymeleaf (템플릿 엔진 - jsp, 타임리프 등) 의존성
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	// implementation 키워드는 컴파일 시점과 런타임 시점에 모두 필요한 라이브러리임을 명시
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	// compileOnly 키워드는 컴파일 시점에서 필요한 라이브러리임을 명시
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
