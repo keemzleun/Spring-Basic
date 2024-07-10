@@ -1,0 +1,55 @@
+<!--<!doctype html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport"-->
+<!--          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="ie=edge">-->
+<!--    <title>axios-nested-json-view</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<form id="form-view">-->
+<!--    name: <input type="text" id="name" name="name"><br>-->
+<!--    email: <input type="text" id="email" name="email"><br>-->
+<!--    password: <input type="text" id="password" name="password"><br>-->
+<!--    성적</br>-->
+<!--    <button onclick="addScore()">과목 추가</button>-->
+<!--    <span>-->
+<!--        과목명: <input type="text" id="subject" name="subject"><br>-->
+<!--        점수: <input type="text" id="score" name="score"><br>-->
+<!--    </span>-->
+
+
+
+<!--    <input type="submit" value="제출">-->
+<!--</form>-->
+<!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
+<!--<script>-->
+
+<!--    document.getElementById("form-view").addEventListener('submit',-->
+<!--        async function (event) {-->
+<!--            event.preventDefault();-->
+<!--            const name = document.getElementById("name").value;-->
+<!--            const email = document.getElementById("email").value;-->
+
+<!--            const score = {math:math, history:history, english:english};-->
+<!--            const scoreJson = JSON.stringify(score);-->
+
+<!--            const formData = new FormData();-->
+<!--            // formData.append('hello', helloJson);-->
+<!--            // Blob 함수는 데이터형을 지정/변환할 때 사용-->
+<!--            formData.append('score', new Blob([scoreJson], {type:"application/json"}))-->
+
+<!--            try {-->
+<!--                const response = await axios.post('http://localhost:8080/hello/axios-nested-json-view',-->
+<!--                                                formData,-->
+<!--                                                {headers: {'Content-Type': 'multipart/form-data'}});-->
+<!--                console.log(response.data);-->
+<!--            } catch (e) {-->
+<!--                console.log(e);-->
+<!--            }-->
+<!--        }-->
+<!--    )-->
+<!--</script>-->
+<!--</body>-->
+<!--</html>-->

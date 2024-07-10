@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+</head>
+
+<body>
+<form action="/member/create" method="post">
+    <div>
+        <label for="name">이름</label>
+        <input id="name" name="name">
+
+    </div>
+    <div>
+        <label for="email">이메일</label>
+        <input id="email" name="email" >
+    </div>
+    <div>
+        <label for="password">비밀번호</label>
+        <input type="password" id="password" name="password">
+    </div>
+    <input type="submit" value="제출">
+</form>
+</body>
+</html>

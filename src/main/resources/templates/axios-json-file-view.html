@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>axios-json-file-view</title>
+</head>
+<body>
+<form id="form-view">
+    name: <input type="text" id="name" name="name"><br>
+    email: <input type="text" id="email" name="email"><br>
+    password: <input type="text" id="password" name="password"><br>
+    file: <input type="file" id="file" name="file"><br>
+    <input type="submit" value="제출">
+</form>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    document.getElementById("form-view").addEventListener('submit',
+        async function (event) {
+            event.preventDefault();
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            const hello = {name:name, email:email, password:password};
+            const helloJson = JSON.stringify(hello);
+
+            const fileInput = document.getElementById("file");
+            //file은 배열 형태로 get
+            const file = fileInput.files[0];
+
+            const formData = new FormData();
+            // formData.append('hello', helloJson);
+            // Blob 함수는 데이터형을 지정/변환할 때 사용
+            formData.append('hello', new Blob([helloJson], {type:"application/json"}))
+            formData.append('file', file);
+
+            try {
+                const response = await axios.post('http://localhost:8080/hello/axios-json-file-view',
+                                                formData,
+                                                {headers: {'Content-Type': 'multipart/form-data'}});
+                console.log(response.data);
+            } catch (e) {
+                console.log(e);
+            }
+        }
+    )
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>axios-json-view</title>
+</head>
+<body>
+<form id="axios-json-view">
+    name: <input type="text" id="name" name="name"><br>
+    email: <input type="text" id="email" name="email"><br>
+    password: <input type="text" id="password" name="password"><br>
+    <input type="submit" value="제출">
+</form>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    document.getElementById("axios-json-view").addEventListener('submit',
+        async function(event){
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            //title=hong&contents=hong is...
+            const formData = new FormData();
+            formData.append('name', name);
+            formData.append('email', email);
+            formData.append('password', password);
+
+            try{
+                const response = await axios.post('http://localhost:8080/hello/axios-json-view',
+                    {name:name, email:email, password:password});
+                console.log(response.data);
+            } catch(e){
+                console.log(e.message);
+            }
+        }
+    )
+</script>
+</body>
+</html>
