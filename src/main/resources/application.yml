@@ -1,0 +1,13 @@
+# properties? ?? ??? ?? ??
+# yml, yaml? ?? ???? ?? ?? ??
+
+#port?? ???, defualt? 8080
+#server:
+#  port: 8081
+
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/basic
+    username: root
+    password: 1234
