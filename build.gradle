@@ -24,11 +24,13 @@ repositories {
 // starter 종속성은 일반적으로 별도의 버전관리가 필요없고, 버전에 다라 호환성을 맞춰줌
 dependencies {
 	// DB 연결 및 관리를 위한 의존성 : jdbc, mybatis, jpa, springDataJpa
-	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	// implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	// mybatis 관련 의존성 추가
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
 //	mariadb 클라이언트 추가
 	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 
-//	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
 	// thymeleaf (템플릿 엔진 - jsp, 타임리프 등) 의존성
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'

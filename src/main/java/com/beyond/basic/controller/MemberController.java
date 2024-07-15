@@ -1,6 +1,7 @@
 package com.beyond.basic.controller;
 
 import com.beyond.basic.domain.Member;
+import com.beyond.basic.domain.MemberDetailResDto;
 import com.beyond.basic.domain.MemberReqDto;
 import com.beyond.basic.domain.MemberResDto;
 import com.beyond.basic.repository.MemberRepository;
@@ -19,6 +20,7 @@ public class MemberController {
 
 //    // 의존성 주입(DI) 방법 1 ) 생성자 주입 방식(가장 많이 사용)
 //    // 장점 : final을 통해 상수로 사용 가능 / 다형성 구현 가능 / 순환 참조 방지
+    // 생성자가 1개 밖에 없을 때에는 @Autowired 생략 가능 -> 근데 그냥 붙여~
     private final MemberService memberService;
     @Autowired
     public MemberController(MemberService memberService) {
@@ -39,7 +41,6 @@ public class MemberController {
         return "member/home";
     }
 
-
     // 회원 목록 조회
     @GetMapping("/member/list")
     public String memberList(Model model){
@@ -51,12 +52,14 @@ public class MemberController {
     // 회원 상세 조회 : memberDetail
     // url : member/1
     // 화면명 : member-detail
-    @GetMapping("/member/{id}")
+    @GetMapping("/member/detail/{id}")
     // int 또는 Long으로 받을 경우, 스프링에서 형변환(String -> Long)
-    public String memberDetail(@PathVariable Long id){
+    public String memberDetail(@PathVariable Long id, Model model){
+        MemberDetailResDto memberDetailResDto = memberService.memberDetail(id);
+        // memberDetailResDto 객체를 member라는 이름으로 모델에 추가
+        model.addAttribute("member", memberDetailResDto);
         return "member/member-detail";
     }
-
 
     // 회원 가입 화면을 먼저 주고
     @GetMapping("/member/create")
@@ -70,12 +73,13 @@ public class MemberController {
             // MemberService memberService = new MemberService();
             memberService.memberCreate(dto);
             // 화면 리턴이 아닌 url 재호출
-            return "redirect:/member/list";
+            return "redirect:/member/detail/";
         } catch(IllegalArgumentException e){
             model.addAttribute("message", e.getMessage());
 
             return "member/member-error";
         }
     }
+
 
 }

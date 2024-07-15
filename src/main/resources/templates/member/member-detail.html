@@ -8,6 +8,12 @@
 <body>
     <div th:replace="member/header :: headerFragment"></div>
     <h1>회원 상세 조회</h1>
-    <p>회원 id: <span th:text="${id}"></span></p>
+    <table>
+        <tr><td>ID : </td><td th:text="${member.id}"></td></tr>
+        <tr><td>Name : </td><td th:text="${member.name}"></td></tr>
+        <tr><td>Email : </td><td th:text="${member.email}"></td></tr>
+        <tr><td>Password : </td><td th:text="${member.password}"></td></tr>
+        <tr><td>가입일시 : </td><td th:text="${member.createdTime}"></td></tr>
+    </table>
 </body>
 </html>
