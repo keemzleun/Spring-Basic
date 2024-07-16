@@ -23,9 +23,13 @@ public class HelloController {
     // @ResponseBody: 화면이 아닌 데이터를 return
     // 만약 여기서 responseBody가 없고 return이 String이면 스프링은 templates 폴더 밑에 helloworld.html 화면을 찾아 리턴
     // @ResponseBody
-    public String helloWorld() {
-        return "helloworld";
-    }
+    public String helloWorld(){
+//	// 	아래와 같이 Controller에서도 HttpServletRequest를 주입받아 사용 가능
+//	// public String helloWorld(HttpServletRequest request) {
+//	// 	System.out.println(request.getSession());
+//	// 	System.out.println(request.getHeader("Cookie"));
+		return "helloworld";
+	}
 
     // CASE 3 ) 사용자가 Json 데이터 요청(get 요청)
     // 실습 )

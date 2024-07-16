@@ -15,8 +15,8 @@ import java.util.Optional;
 
 // input값의 검증 및 실질적인 비즈니스 로직은 서비스 계층에서 수행
 @Service    // 서비스 계층임을 표현함과 동시에 싱글톤 객체로 생성
-// Transactiopnal 어노테이션을 통해 모든 메서드에 트랜잭션을 적용하고, 만약에 예외가 있을 시 롤백처리
-@Transactional
+// Transactiopnal 어노테이션을 통해 모든 메서드에 트랜잭션을 적용하고, 만약에 예외가 있을 시 롤백처리 자동화
+@Transactional(readOnly = true)
 public class MemberService {
 
     // 다형성 설계
@@ -44,13 +44,18 @@ public class MemberService {
 //    @Autowired
 //    private MemberController memberController;
 
+    @Transactional
     public void memberCreate(MemberReqDto dto){
         if (dto.getPassword().length() < 8){
             throw new IllegalArgumentException("비밀번호가 너무 짧습니다.");
         }
         Member member = dto.toEntity();
-
         memberRepository.save(member);
+
+//        // Transactional 롤백 처리 테스트
+//        if (member.getName().equals("kim")){
+//            throw new IllegalArgumentException("잘못된 입력입니다.");
+//        }
     }
 
     public MemberDetailResDto memberDetail(Long id){

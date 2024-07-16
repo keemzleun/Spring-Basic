@@ -41,6 +41,12 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// jsp를 위한  라이브러리 추가
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+
+	// jstl문법을 사용하기 위한 의존성 추가
+	implementation 'javax.servlet:jstl'
 }
 
 tasks.named('test') {
