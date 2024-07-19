@@ -29,7 +29,7 @@ public class HelloServletRestPost extends HttpServlet {
         }
         ObjectMapper objectMapper = new ObjectMapper();
         Hello hello = objectMapper.readValue(value, Hello.class);
-        System.out.println(hello);
+        System.out.print(hello);
     }
 
 }

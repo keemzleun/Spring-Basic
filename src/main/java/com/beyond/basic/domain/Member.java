@@ -17,7 +17,7 @@ import java.util.List;
 // 해당 클래스명으로 테이블 및 컬럼을 자동 생성하고, 각종 설정정보 위임
 @Entity
 @NoArgsConstructor  // 기본 생성자는 Jpa에서 필수
-public class Member {
+public class Member extends BaseEntity{
 
     @Id // pk 설정
     // identity: auto_increament 설정
@@ -40,16 +40,6 @@ public class Member {
     private List<Post> posts;
 
 
-
-    // 최초의 시간 생성
-    @CreationTimestamp  // DB에는 current_timestamp가 생성되지 않음 = spring에서 시간을 찍어서 db에 넣어줌
-    private LocalDateTime createdTime;  // camelCase로 작성시 db에는 _(언더바)로 생성
-
-    // 시간 업데이트
-    @UpdateTimestamp
-    private LocalDateTime updateTime;
-
-
     public Member(String name, String email, String password){
         this.name = name;
         this.email = email;
@@ -67,6 +57,7 @@ public class Member {
     public MemberDetailResDto detailFromEntity(){
         LocalDateTime createdTime = this.getCreatedTime();
         String value = createdTime.getYear()+"년 "+createdTime.getMonthValue()+"월 "+createdTime.getDayOfMonth()+"일";
+
         return new MemberDetailResDto(this.id, this.name, this.email, this.password, value);
     }
 
